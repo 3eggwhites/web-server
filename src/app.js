@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const { Server } = require('http');
+const hbs = require('hbs');
 
 const app = express();
 
@@ -11,8 +11,10 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.set('view engine', 'hbs');
 
 // providing custom path to express for the templates
-const viewPath = path.join(__dirname,'../templates');
+const viewPath = path.join(__dirname,'../templates/views');
+const partialsPath = path.join(__dirname, '../templates/partials'); // partials are files that are reusable
 app.set('views', viewPath);
+hbs.registerPartials(partialsPath);
 
 app.get('', (req,res) => {
     res.render('index', { // this argument i.e. 'index' should match the view file name that we want to serve.
@@ -31,7 +33,8 @@ app.get('/about', (req,res) => {
 app.get('/help', (req,res) => {
     res.render('help', {
         title: 'Help',
-        helpMessage: 'Help yourself'
+        helpMessage: 'Help yourself',
+        name: 'Ayan Pal'
     })
 });
 
