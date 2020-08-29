@@ -45,6 +45,22 @@ app.get('/weather', (req,res) => {
     });
 });
 
+app.get('/help/*', (req,res) => {
+    res.render('error', {
+        title: 'Error',
+        errorMessage: 'Help article not found',
+        name: 'Ayan Pal'
+    });
+});
+
+app.get('*', (req,res) => {
+    res.render('error', {
+        title: '404',
+        errorMessage: 'Page Not Found',
+        name: 'Ayan Pal'
+    });
+});
+
 app.listen(4200, () => {
     console.log('server is running');
 });
