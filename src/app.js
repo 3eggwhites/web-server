@@ -4,9 +4,15 @@ const { Server } = require('http');
 
 const app = express();
 
-app.set('view engine', 'hbs');
-app.use(express.static(path.join(__dirname, '../public'))); // this the root page now //public folder contents are for serving static contents
+//public folder contents are for serving static contents
+app.use(express.static(path.join(__dirname, '../public')));
+
 // view folder content express look to find template files i.e. dynamic contents. to use view files we need to provide the below line
+app.set('view engine', 'hbs');
+
+// providing custom path to express for the templates
+const viewPath = path.join(__dirname,'../templates');
+app.set('views', viewPath);
 
 app.get('', (req,res) => {
     res.render('index', { // this argument i.e. 'index' should match the view file name that we want to serve.
