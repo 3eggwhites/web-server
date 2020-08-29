@@ -67,13 +67,13 @@ app.get('*', (req,res) => {
 });
 
 const forecast = (address, res) => {
-    geocode.geoCode(address,(error,geoCodeData) => {
+    geocode.geoCode(address,(error,{lat, long, location} = {}) => {
         if (error) {
             return res.send({
                 error
             });
         }
-        weatherforecast.forecast(geoCodeData.lat,geoCodeData.long, (error,currenWeatherData) => {
+        weatherforecast.forecast(lat,long, (error,currenWeatherData) => {
             if (error) {
                 return res.send({
                     error
@@ -81,7 +81,7 @@ const forecast = (address, res) => {
             }
             return res.send({
                 forecast: currenWeatherData,
-                location: geoCodeData.location,
+                location: location,
                 address
             })
         })
