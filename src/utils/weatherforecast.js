@@ -10,7 +10,14 @@ const currentWeather = (lattitude,longitude,callback) => {
             callback('Please enter a proper location',undefined);
         } else {
             const currentWeatherData = body.current;
-            callback(undefined,currentWeatherData.weather_descriptions[0] + '. Its is currently '+currentWeatherData.temperature+' degrees out. But feels like '+currentWeatherData.feelslike+' degrees.');
+            callback(undefined,
+                currentWeatherData.weather_descriptions[0]
+                + '. Its is currently '
+                + currentWeatherData.temperature
+                + ' degrees out, but feels like '
+                + currentWeatherData.feelslike+' degrees. Humidity is '
+                + currentWeatherData.humidity
+                +'%');
         }
     });
 };
