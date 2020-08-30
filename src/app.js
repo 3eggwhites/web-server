@@ -53,7 +53,7 @@ app.get('/weather', (req,res) => {
 
 app.get('/help/*', (req,res) => {
     res.render('error', {
-        title: 'Error',
+        title: '404',
         errorMessage: 'Help article not found',
         name: 'Ayan Pal'
     });
