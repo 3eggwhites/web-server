@@ -28,7 +28,7 @@ app.get('', (req,res) => {
 
 app.get('/about', (req,res) => {
     res.render('about', {
-        title: 'About Me',
+        title: 'About',
         name: 'Ayan Pal'
     })
 });
@@ -36,7 +36,7 @@ app.get('/about', (req,res) => {
 app.get('/help', (req,res) => {
     res.render('help', {
         title: 'Help',
-        helpMessage: 'Help yourself',
+        helpMessage: 'To search weather update for a location, enter location name or address in the serachbox and hit the search button',
         name: 'Ayan Pal'
     })
 });
