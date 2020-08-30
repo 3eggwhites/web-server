@@ -5,6 +5,7 @@ const geocode = require('./utils/geocode');
 const weatherforecast = require('./utils/weatherforecast'); 
 
 const app = express();
+const port = process.env.PORT || 4200; // for heroku to provide port dynamically for local
 
 //public folder contents are for serving static contents
 app.use(express.static(path.join(__dirname, '../public')));
@@ -88,6 +89,6 @@ const forecast = (address, res) => {
     });
 };
 
-app.listen(4200, () => {
-    console.log('server is running');
+app.listen(port, () => {
+    console.log('server is running on port '+port);
 });
