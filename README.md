@@ -16,6 +16,7 @@ This web app can search a location based on name and provide weather data for th
 - Clone the repository by performing `git clone`
 - Open a terminal or command prompt and go inside the root directory of the application i.e the folder named as `web-server`
 - Perform `npm install` to install all the required dependencies.
-- Type `node src/app.js` to start the application up. The application listens to port `4200`.
-#Credits
+- Type `node src/app.js` to start the application up. The application listens to port `4200`
+
+# Credits
 This Weather Application was built based on the Node.js course offered by Andrew Mead on Udemy
