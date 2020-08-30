@@ -1,11 +1,15 @@
 const path = require('path');
 const express = require('express');
+const http = require('http');
 const hbs = require('hbs');
 const geocode = require('./utils/geocode');
-const weatherforecast = require('./utils/weatherforecast'); 
+const weatherforecast = require('./utils/weatherforecast');
 
+
+const contextPath = '/weatherapp'
 const app = express();
 const port = process.env.PORT || 4200; // for heroku to provide port dynamically for local
+
 
 //public folder contents are for serving static contents
 app.use(express.static(path.join(__dirname, '../public')));
@@ -19,21 +23,23 @@ const partialsPath = path.join(__dirname, '../templates/partials'); // partials 
 app.set('views', viewPath);
 hbs.registerPartials(partialsPath);
 
-app.get('', (req,res) => {
+const router = express.Router();
+
+router.get('', (req,res) => {
     res.render('index', { // this argument i.e. 'index' should match the view file name that we want to serve.
         title: 'Weather',
         name: 'Ayan Pal'
     }); // to pass some values to the template file we pass object containing value.
 });
 
-app.get('/about', (req,res) => {
+router.get('/about', (req,res) => {
     res.render('about', {
         title: 'About',
         name: 'Ayan Pal'
     })
 });
 
-app.get('/help', (req,res) => {
+router.get('/help', (req,res) => {
     res.render('help', {
         title: 'Help',
         helpMessage: 'To search weather update for a location, enter location name or address in the serachbox and hit the search button',
@@ -41,7 +47,7 @@ app.get('/help', (req,res) => {
     })
 });
 
-app.get('/weather', (req,res) => {
+router.get('/weather', (req,res) => {
     if (!req.query.address) {
         return res.send({
             error: 'Please provide a location'
@@ -51,7 +57,7 @@ app.get('/weather', (req,res) => {
     forecast(address,res);
 });
 
-app.get('/help/*', (req,res) => {
+router.get('/help/*', (req,res) => {
     res.render('error', {
         title: '404',
         errorMessage: 'Help article not found',
@@ -59,7 +65,7 @@ app.get('/help/*', (req,res) => {
     });
 });
 
-app.get('*', (req,res) => {
+router.get('*', (req,res) => {
     res.render('error', {
         title: '404',
         errorMessage: 'Page Not Found',
@@ -89,6 +95,12 @@ const forecast = (address, res) => {
     });
 };
 
-app.listen(port, () => {
+app.use(contextPath,router);
+
+const httpServer = http.createServer(app);
+httpServer.listen(port, () => {
     console.log('server is running on port '+port);
 });
+// app.listen(port, () => {
+//     console.log('server is running on port '+port);
+// });
