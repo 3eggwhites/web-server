@@ -19,6 +19,19 @@ const partialsPath = path.join(__dirname, '../templates/partials'); // partials 
 app.set('views', viewPath);
 hbs.registerPartials(partialsPath);
 
+app.use((req, res, next) => {
+    if (process.env.NODE_ENV === 'production') {
+        if (req.headers.host === 'ayan-weather-web-application.herokuapp.com')
+            return res.redirect(302, 'https://www.ayanpal.co.in');
+        if (req.headers['x-forwarded-proto'] !== 'https')
+            return res.redirect('https://' + req.headers.host + req.url);
+        else
+            return next();
+    } else
+        return next();
+});
+
+
 app.get('', (req,res) => {
     res.render('index', { // this argument i.e. 'index' should match the view file name that we want to serve.
         title: 'Weather',
