@@ -51,6 +51,10 @@ app.get('/weather', (req,res) => {
     forecast(address,res);
 });
 
+app.get('/.well-known/acme-challenge/xnBtIVivrNbOA3cWkiU32n5prbNfU1HV4pqh8ME4hyk', (req, res)=>{
+    res.send('xnBtIVivrNbOA3cWkiU32n5prbNfU1HV4pqh8ME4hyk.H3wXVlXKrtvZNaiBj7LXFC1nRYcQ6QII0XUQ10RyHCQ');
+});
+
 app.get('/help/*', (req,res) => {
     res.render('error', {
         title: '404',
